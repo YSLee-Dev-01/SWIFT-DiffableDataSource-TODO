@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FF90FE682E9CCF4500331631 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FF90FE672E9CCF4500331631 /* SnapKit */; };
-		FF90FE6A2E9CCF4500331631 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FF90FE692E9CCF4500331631 /* SnapKit-Dynamic */; };
 		FF90FE6D2E9CCF5000331631 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = FF90FE6C2E9CCF5000331631 /* Then */; };
+		FF90FECD2E9CD55F00331631 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FF90FECC2E9CD55F00331631 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,7 +19,7 @@
 		FF90FE5D2E9CC6E600331631 /* Exceptions for "Swift_DiffableDataSource" folder in "Swift_DiffableDataSource" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				App/Source/Info.plist,
 			);
 			target = FF90FE4A2E9CC6E500331631 /* Swift_DiffableDataSource */;
 		};
@@ -42,9 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF90FE682E9CCF4500331631 /* SnapKit in Frameworks */,
 				FF90FE6D2E9CCF5000331631 /* Then in Frameworks */,
-				FF90FE6A2E9CCF4500331631 /* SnapKit-Dynamic in Frameworks */,
+				FF90FECD2E9CD55F00331631 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,9 +85,8 @@
 			);
 			name = Swift_DiffableDataSource;
 			packageProductDependencies = (
-				FF90FE672E9CCF4500331631 /* SnapKit */,
-				FF90FE692E9CCF4500331631 /* SnapKit-Dynamic */,
 				FF90FE6C2E9CCF5000331631 /* Then */,
+				FF90FECC2E9CD55F00331631 /* SnapKit */,
 			);
 			productName = Swift_DiffableDataSource;
 			productReference = FF90FE4B2E9CC6E500331631 /* Swift_DiffableDataSource.app */;
@@ -120,8 +117,8 @@
 			mainGroup = FF90FE422E9CC6E500331631;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				FF90FE662E9CCF4500331631 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				FF90FE6B2E9CCF5000331631 /* XCRemoteSwiftPackageReference "Then" */,
+				FF90FECB2E9CD55F00331631 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FF90FE4C2E9CC6E500331631 /* Products */;
@@ -163,7 +160,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6V8879W55Z;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Swift_DiffableDataSource/Info.plist;
+				INFOPLIST_FILE = Swift_DiffableDataSource/App/Source/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -194,7 +191,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6V8879W55Z;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Swift_DiffableDataSource/Info.plist;
+				INFOPLIST_FILE = Swift_DiffableDataSource/App/Source/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -361,14 +358,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FF90FE662E9CCF4500331631 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.7.1;
-			};
-		};
 		FF90FE6B2E9CCF5000331631 /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
@@ -377,23 +366,26 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		FF90FECB2E9CD55F00331631 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FF90FE672E9CCF4500331631 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FF90FE662E9CCF4500331631 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		FF90FE692E9CCF4500331631 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FF90FE662E9CCF4500331631 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
-		};
 		FF90FE6C2E9CCF5000331631 /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FF90FE6B2E9CCF5000331631 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		FF90FECC2E9CD55F00331631 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF90FECB2E9CD55F00331631 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

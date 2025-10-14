@@ -13,9 +13,10 @@ class AddVC: UIViewController {
     
     // MARK: - Properties
     
-    private let textField = UITextField().then {
+    private lazy var textField = UITextField().then {
         $0.placeholder = "TODO 내용을 입력해주세요."
         $0.font = .systemFont(ofSize: 17, weight: .medium)
+        $0.delegate = self
     }
     
     private let textFieldBottomBorder = UIView().then {
@@ -54,6 +55,12 @@ class AddVC: UIViewController {
         
         self.attribute()
         self.layout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.textField.becomeFirstResponder()
     }
 }
 
@@ -111,6 +118,7 @@ private extension AddVC {
     
     @objc
     func doneBtnTapped() {
+        self.viewModel.addTodo(self.textField.text ?? "")
         self.dismiss(animated: true)
     }
     
@@ -146,5 +154,19 @@ extension AddVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.textField.text = self.viewModel.recommendTitles[indexPath.row]
+    }
+}
+
+// MARK: - extension UITextFieldDelegate
+
+extension AddVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        if !(textField.text?.isEmpty ?? true) {
+            self.doneBtnTapped()
+        }
+        
+        return true
     }
 }

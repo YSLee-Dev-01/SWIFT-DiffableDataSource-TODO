@@ -13,13 +13,13 @@ class AddVC: UIViewController {
     
     // MARK: - Properties
     
-    private var textField = UITextField().then {
+    private let textField = UITextField().then {
         $0.placeholder = "TODO 내용을 입력해주세요."
         $0.font = .systemFont(ofSize: 17, weight: .medium)
-        $0.layer.borderColor = UIColor.systemGray4.cgColor
-        $0.layer.borderWidth = 1
-        $0.layer.cornerRadius = 10
-        $0.layer.masksToBounds = true
+    }
+    
+    private let textFieldBottomBorder = UIView().then {
+        $0.backgroundColor = UIColor.systemGray4
     }
     
     private let createDate = UILabel().then {
@@ -74,7 +74,7 @@ private extension AddVC {
     
     
     func layout() {
-        [self.createDate, self.textField, self.recommendTitle, self.tableView]
+        [self.createDate, self.textField, self.textFieldBottomBorder, self.recommendTitle, self.tableView]
             .forEach {
                 self.view.addSubview($0)
             }
@@ -87,7 +87,13 @@ private extension AddVC {
         self.textField.snp.makeConstraints {
             $0.top.equalTo(self.createDate.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(50)
+            $0.height.equalTo(40)
+        }
+        
+        self.textFieldBottomBorder.snp.makeConstraints {
+            $0.top.equalTo(self.textField.snp.bottom)
+            $0.leading.trailing.equalTo(self.textField)
+            $0.height.equalTo(1)
         }
         
         self.recommendTitle.snp.makeConstraints {

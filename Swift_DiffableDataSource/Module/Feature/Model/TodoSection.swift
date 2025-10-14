@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TodoSection: Hashable {
+struct TodoSection: Hashable, Codable {
     let title: String
     var todos: [Todo]
 }

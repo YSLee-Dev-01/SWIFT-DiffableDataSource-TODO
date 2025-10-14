@@ -40,7 +40,16 @@ class HomeVC: UIViewController {
         self.viewModel.reloadData()
     }
     
+    /// 기존 layoutSubviews()의 문제점을 개선하기 위해 추가된 메서드
+    /// - layoutSubviews()는 속성 업데이트와 레이아웃 처리를 동시에 하던 구조로
+    ///   속성 하나만 변경되어도 전체 레이아웃을 다시 계산하는 경우가 발생함
     ///
+    /// 레이아웃 처리가 아닌 속성 업데이트만 처리하는 메서드
+    /// -> 속성만 업데이트 하는 기능이 분리되어 레이아웃을 재계산하는 불필요한 과정 제거
+    /// - updateProperties()는 layoutSubviews() 직전에 실행됨
+    /// - iOS26이상 부터 사용 가능
+    ///
+    /// - UIKit에서 @Observable를 사용할 때 이용하게 됨
     override func updateProperties() {
         super.updateProperties()
         

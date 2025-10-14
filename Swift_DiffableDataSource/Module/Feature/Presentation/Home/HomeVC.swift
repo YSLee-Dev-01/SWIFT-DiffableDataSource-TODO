@@ -15,6 +15,7 @@ class HomeVC: UIViewController {
     
     private let tableView = UITableView().then {
         $0.contentInset.bottom = 50
+        $0.register(HomeVCTableViewCell.self, forCellReuseIdentifier: HomeVCTableViewCell.cellId)
     }
     
     private let emptyLabel = UILabel().then {

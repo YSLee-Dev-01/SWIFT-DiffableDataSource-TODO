@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct TodoSection: Hashable {
+    let title: String
+    var todos: [Todo]
+}

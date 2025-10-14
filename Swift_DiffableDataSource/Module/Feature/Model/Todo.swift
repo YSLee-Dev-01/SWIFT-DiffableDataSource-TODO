@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct Todo: Hashable {
+    let id: UUID
+    let createDate: Date
+    var title: String
+    var isCompleted: Bool
+}

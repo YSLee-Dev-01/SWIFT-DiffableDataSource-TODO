@@ -40,10 +40,19 @@ class TodoManager {
         return self.todoSections
     }
     
-    func addTodo(_ todo: Todo) {
+    func addTodo(_ title: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let sectionDate = dateFormatter.string(from: .now)
+        
+        let isFirst = self.todoSections.isEmpty
+        
+        let todo = Todo(
+            id: isFirst ? 1 : ((self.todoSections.last?.todos.last?.id) ?? 1 + 1),
+            createDate: .now,
+            title: title,
+            isCompleted: false
+        )
         
         if self.todoSections.first?.title == sectionDate {
             self.todoSections[0].todos.append(todo)

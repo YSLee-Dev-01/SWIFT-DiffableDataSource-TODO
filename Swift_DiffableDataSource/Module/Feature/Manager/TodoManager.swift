@@ -7,6 +7,17 @@
 
 import Foundation
 
+/// Swift 6.2 + Default Actor Isolation 설정이 Main Actor일 때
+/// - @MainActor 어노테이션을 붙이지 않아도 모든 타입이 @MainActor로 격리됨
+///
+/// 단, UITableViewDiffableDataSource와 같이 사용 시 오류가 발생할 수 있음
+/// 1. 사용자가 만든 객체는 자동으로 @MainActor로 격리됨
+/// 2. UITableViewDiffableDataSource 사용으로 인한 Hashable, Senable 준수 시,
+/// - Hashable은 MainActor에 격리되서 준수됨 (MainActor - isolated)
+/// 3. 단 Sendable 준수 시에는 어느 Actor에도 격리되지 않아야 함
+///
+/// 빌드 설정에서 메인스레드에서의 보장을 없앨 수 있음
+
 @globalActor
 actor TodoManager {
     

@@ -29,6 +29,8 @@ class AddViewModel {
     
     func addTodo(_ title: String) {
         if title.isEmpty {return}
-        TodoManager.shared.addTodo(title)
+        Task {
+            await TodoManager.shared.addTodo(title)
+        }
     }
 }

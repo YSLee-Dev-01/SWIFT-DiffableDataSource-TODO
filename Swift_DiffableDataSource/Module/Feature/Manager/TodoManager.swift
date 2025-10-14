@@ -7,7 +7,8 @@
 
 import Foundation
 
-class TodoManager {
+@globalActor
+actor TodoManager {
     
     // MARK: - Properties
     

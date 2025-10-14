@@ -13,6 +13,8 @@ class HomeVC: UIViewController {
     
     // MARK: - Properties
     
+    //private var dataSources: UITableViewDiffableDataSource<TodoSection, Todo>!
+    
     private let tableView = UITableView().then {
         $0.contentInset.bottom = 50
         $0.register(HomeVCTableViewCell.self, forCellReuseIdentifier: HomeVCTableViewCell.cellId)
@@ -38,7 +40,9 @@ class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.viewModel.reloadData()
+        Task {
+            await self.viewModel.reloadData()
+        }
     }
     
     /// 기존 layoutSubviews()의 문제점을 개선하기 위해 추가된 메서드

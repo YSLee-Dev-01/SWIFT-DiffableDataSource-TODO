@@ -19,7 +19,7 @@ class HomeViewModel {
     
     // MARK: - Methods
     
-    func reloadData() {
-        self.sections = TodoManager.shared.getTodoSections()
+    func reloadData() async {
+        self.sections = await TodoManager.shared.getTodoSections()
     }
 }

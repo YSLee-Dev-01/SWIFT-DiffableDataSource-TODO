@@ -18,9 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         navigationController.navigationBar.prefersLargeTitles = true
         
-        window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        self.window = UIWindow(windowScene: windowScene)
+        self.window?.rootViewController = navigationController
+        self.window?.makeKeyAndVisible()
+        
+        TodoManager.shared.loadTodos()
     }
 }
 

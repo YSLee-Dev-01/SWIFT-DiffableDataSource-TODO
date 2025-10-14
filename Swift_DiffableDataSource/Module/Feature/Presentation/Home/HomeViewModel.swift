@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+@Observable
+class HomeViewModel {
+    
+    // MARK: - Properties
+    
+    var sections: [TodoSection] = []
+    
+    // MARK: - Methods
+    
+    func reloadData() {
+        self.sections = TodoManager.shared.getTodoSections()
+    }
+}

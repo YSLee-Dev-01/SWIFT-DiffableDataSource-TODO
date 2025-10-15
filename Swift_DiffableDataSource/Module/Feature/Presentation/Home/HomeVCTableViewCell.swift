@@ -18,7 +18,7 @@ class HomeVCTableViewCell: UITableViewCell {
     private lazy var checkBtn = UIButton().then {
         $0.imageView?.contentMode = .scaleAspectFit
         $0.setImage(UIImage(systemName: "circle"), for: .normal)
-        $0.setImage(UIImage(systemName: "checkmark.circle"), for: .selected)
+        $0.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
         $0.addTarget(self, action: #selector(checkBtnTapped), for: .touchUpInside)
     }
     
@@ -39,6 +39,12 @@ class HomeVCTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.titleLabel.attributedText = nil
     }
 }
 
@@ -70,7 +76,15 @@ extension HomeVCTableViewCell {
     }
     
     func configure(title: String, isComplated: Bool, checkBtnAction: @escaping () -> Void) {
-        self.titleLabel.text = title
+        let attributeString = NSMutableAttributedString(string: title)
+        
+        attributeString.addAttribute(
+            isComplated ? .strikethroughStyle : .textHighlightStyle,
+            value: NSUnderlineStyle.single.rawValue,
+            range: NSMakeRange(0, attributeString.length)
+        )
+        
+        self.titleLabel.attributedText = attributeString
         self.checkBtn.isSelected = isComplated
         self.checkBtnTappedAction = checkBtnAction
     }

@@ -5,7 +5,7 @@
 //  Created by 이윤수 on 10/14/25.
 //
 
-import Foundation
+import UIKit
 
 /// Swift 6.2 + Default Actor Isolation 설정이 Main Actor일 때
 /// - @MainActor 어노테이션을 붙이지 않아도 모든 타입이 @MainActor로 격리됨
@@ -70,6 +70,14 @@ actor TodoManager {
             self.todoSections[0].todos.append(todo)
         } else {
             self.todoSections.insert(.init(title: sectionDate, todos: [todo]), at: 0)
+        }
+    }
+    
+    func toggleCompletion(_ indexPath: IndexPath) {
+        self.todoSections[indexPath.section].todos[indexPath.item].isCompleted.toggle()
+        
+        self.todoSections[indexPath.section].todos =  self.todoSections[indexPath.section].todos.sorted {
+            !$0.isCompleted && $1.isCompleted
         }
     }
 }

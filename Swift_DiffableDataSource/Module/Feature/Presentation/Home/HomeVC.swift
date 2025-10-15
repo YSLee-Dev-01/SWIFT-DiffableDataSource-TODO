@@ -42,7 +42,9 @@ class HomeVC: UIViewController {
     private lazy var dataSources = UITableViewDiffableDataSource<TodoSection, Todo>(tableView: self.tableView, cellProvider: { tableView, indexPath, data in
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeVCTableViewCell.cellId, for: indexPath) as? HomeVCTableViewCell  else {return UITableViewCell()}
         cell.configure(title: data.title, isComplated: data.isCompleted) {
-            print("TAPPED")
+            Task { @MainActor in
+                await self.viewModel.toggleTodo(indexPath)
+            }
         }
         return cell
     })

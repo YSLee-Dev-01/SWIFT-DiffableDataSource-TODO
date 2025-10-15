@@ -22,4 +22,10 @@ class HomeViewModel {
     func reloadData() async {
         self.sections = await TodoManager.shared.getTodoSections()
     }
+    
+    func toggleTodo(_ indexPath: IndexPath) async {
+        await TodoManager.shared.toggleCompletion(indexPath)
+        
+        await self.reloadData()
+    }
 }

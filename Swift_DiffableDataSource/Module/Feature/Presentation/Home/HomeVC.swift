@@ -132,7 +132,13 @@ private extension HomeVC {
     
     @objc
     func addBtnTapped() {
-        let navigationViewController = UINavigationController(rootViewController: AddVC())
+        let addVC = AddVC() { [weak self] in
+            Task {
+                await self?.viewModel.reloadData()
+            }
+        }
+        
+        let navigationViewController = UINavigationController(rootViewController: addVC)
         self.present(navigationViewController, animated: true)
     }
 }

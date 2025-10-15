@@ -47,8 +47,20 @@ class AddVC: UIViewController {
     }
     
     private let viewModel = AddViewModel()
+    
+    private var onCompleted: (() -> Void)?
   
     // MARK: - LifeCycle
+    
+    init(onCompleted: (() -> Void)? = nil) {
+        self.onCompleted = onCompleted
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,7 +131,9 @@ private extension AddVC {
     @objc
     func doneBtnTapped() {
         self.viewModel.addTodo(self.textField.text ?? "")
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            self.onCompleted?()
+        }
     }
     
     @objc

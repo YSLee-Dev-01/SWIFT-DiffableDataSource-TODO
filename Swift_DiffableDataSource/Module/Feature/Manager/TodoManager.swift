@@ -67,7 +67,7 @@ actor TodoManager {
         )
         
         if self.todoSections.first?.title == sectionDate {
-            self.todoSections[0].todos.append(todo)
+            self.todoSections[0].todos.insert(todo, at: 0)
         } else {
             self.todoSections.insert(.init(title: sectionDate, todos: [todo]), at: 0)
         }

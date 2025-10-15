@@ -13,10 +13,12 @@ class HomeVC: UIViewController {
     
     // MARK: - Properties
     
-    private let tableView = UITableView().then {
+    private lazy var tableView = UITableView(frame: .zero, style: .grouped).then {
         $0.contentInset.bottom = 50
         $0.separatorStyle = .none
         $0.register(HomeVCTableViewCell.self, forCellReuseIdentifier: HomeVCTableViewCell.cellId)
+        $0.delegate = self
+        $0.backgroundColor = .systemBackground
     }
     
     private let emptyLabel = UILabel().then {
@@ -91,6 +93,7 @@ private extension HomeVC {
         self.navigationItem.title = "TODO"
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.setToolbarHidden(false, animated: false)
+        
         self.tableView.dataSource = self.dataSources
     }
     
@@ -118,7 +121,7 @@ private extension HomeVC {
         var snapShot = NSDiffableDataSourceSnapshot<TodoSection, Todo>()
         snapShot.appendSections(self.viewModel.sections)
         
-        /// section을 추가한 이후에도 각 section에 속사는 item은 별도로 추가해야함
+        /// section을 추가한 이후에도 각 section에 속하는 item은 별도로 추가해야함
         /// - section와 item을 분리해서 관리하기 때문
         for section in self.viewModel.sections {
             snapShot.appendItems(section.todos, toSection: section)
@@ -131,5 +134,22 @@ private extension HomeVC {
     func addBtnTapped() {
         let navigationViewController = UINavigationController(rootViewController: AddVC())
         self.present(navigationViewController, animated: true)
+    }
+}
+
+// MARK: - extension UITableViewDelegate
+
+extension HomeVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = HomeVCTableViewHeader()
+        let data = self.viewModel.sections[section]
+        
+        headerView.configure(title: data.title)
+        
+        return headerView
     }
 }

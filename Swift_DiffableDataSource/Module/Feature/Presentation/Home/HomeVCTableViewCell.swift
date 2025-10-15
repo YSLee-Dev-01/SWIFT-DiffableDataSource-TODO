@@ -48,6 +48,7 @@ extension HomeVCTableViewCell {
     
     private func attribute() {
         self.selectionStyle = .none
+        self.backgroundColor = .systemBackground
     }
     
     private func layout() {
@@ -56,14 +57,14 @@ extension HomeVCTableViewCell {
         }
         
         self.titleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(12)
+            $0.leading.equalToSuperview().inset(20)
             $0.centerY.equalToSuperview()
             $0.trailing.equalTo(self.checkBtn.snp.leading).offset(8)
         }
         
         self.checkBtn.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(12)
+            $0.trailing.equalToSuperview().inset(20)
             $0.size.equalTo(25)
         }
     }

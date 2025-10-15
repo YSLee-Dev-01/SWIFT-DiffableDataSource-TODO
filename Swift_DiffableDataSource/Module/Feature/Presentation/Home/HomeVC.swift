@@ -13,10 +13,9 @@ class HomeVC: UIViewController {
     
     // MARK: - Properties
     
-    //private var dataSources: UITableViewDiffableDataSource<TodoSection, Todo>!
-    
     private let tableView = UITableView().then {
         $0.contentInset.bottom = 50
+        $0.separatorStyle = .none
         $0.register(HomeVCTableViewCell.self, forCellReuseIdentifier: HomeVCTableViewCell.cellId)
     }
     
@@ -24,6 +23,27 @@ class HomeVC: UIViewController {
         $0.text = "TODO가 등록되지 않았어요.\n+버튼을 눌러 추가해주세요."
         $0.font = .systemFont(ofSize: 17, weight: .semibold)
     }
+    
+    /// UITableViewDiffableDataSource 이전에는 controller가 delegate를 통해 cell의 모양, 개수를 받아서 처리하는 방식
+    /// - IndexPath에서 오류가 발생하거나 속도가 느린 경우가 있었음
+    ///
+    /// DiffableDataSource가 도입됨에 따라 IndexPath 개념이 아닌 Hash를 사용함
+    /// - 빠른 속도를 보장하며, IndexPath를 잘못 입력하여 오류가 발생할 확률도 줄어듬
+    /// -> section, cell에 표시되는 데이터는 hashable을 준수해야함
+    ///
+    /// DiffableDataSource는 항상 새로운 스냅샷을 apply() 하는 방식으로 이루어짐
+    /// - 기존 스냅샷을 복사해서 참조할 수 있고, 새로운 스냅샷을 만들 수 도 있지만, 적용하는건 항상 새로운 스냅샷이여야 함
+    /// -> 상태기반의 프로그래밍 방식으로 설계되었기 때문
+    ///
+    /// + DiffableDataSource와 Swift 6.2를 같이 사용하기 되면 오류가 발생할 수 있음 (sendable 준수문제)
+    /// - TodoManager에 기록
+    private lazy var dataSources = UITableViewDiffableDataSource<TodoSection, Todo>(tableView: self.tableView, cellProvider: { tableView, indexPath, data in
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeVCTableViewCell.cellId, for: indexPath) as? HomeVCTableViewCell  else {return UITableViewCell()}
+        cell.configure(title: data.title, isComplated: data.isCompleted) {
+            print("TAPPED")
+        }
+        return cell
+    })
     
     private let viewModel = HomeViewModel()
     
@@ -59,6 +79,7 @@ class HomeVC: UIViewController {
         super.updateProperties()
         
         self.emptyLabel.isHidden = !self.viewModel.sections.isEmpty
+        self.tableViewUpdate()
     }
 }
 
@@ -70,6 +91,7 @@ private extension HomeVC {
         self.navigationItem.title = "TODO"
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.setToolbarHidden(false, animated: false)
+        self.tableView.dataSource = self.dataSources
     }
     
     func setupToolbar() {
@@ -90,6 +112,19 @@ private extension HomeVC {
         self.emptyLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
+    }
+    
+    func tableViewUpdate() {
+        var snapShot = NSDiffableDataSourceSnapshot<TodoSection, Todo>()
+        snapShot.appendSections(self.viewModel.sections)
+        
+        /// section을 추가한 이후에도 각 section에 속사는 item은 별도로 추가해야함
+        /// - section와 item을 분리해서 관리하기 때문
+        for section in self.viewModel.sections {
+            snapShot.appendItems(section.todos, toSection: section)
+        }
+        
+        self.dataSources.apply(snapShot, animatingDifferences: true)
     }
     
     @objc

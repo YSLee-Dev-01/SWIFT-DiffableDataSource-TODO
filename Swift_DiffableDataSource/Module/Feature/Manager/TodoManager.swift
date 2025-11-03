@@ -16,7 +16,8 @@ import UIKit
 /// - Hashable은 MainActor에 격리되서 준수됨 (MainActor - isolated)
 /// 3. 단 Sendable 준수 시에는 어느 Actor에도 격리되지 않아야 함
 ///
-/// 빌드 설정에서 메인스레드에서의 보장을 없앨 수 있음
+/// 1. 빌드 설정에서 메인스레드에서의 보장을 없앨 수 있음
+/// 2. 객체를 nonisolated로 설정하면 격리되지 않을 수 있음
 
 @globalActor
 actor TodoManager {
